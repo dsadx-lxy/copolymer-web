@@ -1,0 +1,18 @@
+// DOM integration test only. This does not replace real browser visual/download QA.
+const fs=require('node:fs'),assert=require('node:assert/strict');
+let jsdom;try{jsdom=require('jsdom');}catch(e){jsdom=require('./dev-tools/node_modules/jsdom');}const {JSDOM,VirtualConsole}=jsdom;
+const errors=[],files=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
+const dom=new JSDOM(fs.readFileSync(__dirname+'/index.html','utf8'),{url:'https://unit-test.invalid/',runScripts:'dangerously',virtualConsole:vc,beforeParse(w){w.HTMLCanvasElement.prototype.getContext=()=>({scale(){},clearRect(){},fillRect(){},fillText(){}});w.URL.createObjectURL=()=> 'blob:unit-test';w.URL.revokeObjectURL=()=>{};}});
+const w=dom.window,d=w.document,$=id=>d.getElementById(id),wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function until(check){for(let i=0;i<150;i++){if(check())return;await wait(20);}throw Error('timeout: '+$('message').textContent+' / '+$('fitStatus').textContent);}
+(async()=>{assert.equal(errors.length,0,errors.join('\n'));assert.equal(d.documentElement.dataset.theme,'light');assert.equal(d.querySelectorAll('.side-nav .section-tab').length,6);$('theme-toggle').click();assert.equal(d.documentElement.dataset.theme,'dark');assert.equal(w.localStorage.getItem('copolymer-theme-v2-light'),'dark');$('theme-toggle').click();assert.equal(d.documentElement.dataset.theme,'light');w.eval('download=(name,data,type)=>window.__files.push({name,data,type})');w.__files=files;
+$('n').value=1000;$('reps').value=2;$('windowSize').value=2;$('stageBounds').value='0,20,40,80';$('target').value=80;$('forceFallback').checked=true;$('run').click();await until(()=>$('status').textContent.startsWith('计算完成'));
+assert.equal($('mx').textContent,'80.0%');assert.equal($('mr').textContent,'2');assert.ok($('ensemble').querySelector('polygon'));assert.equal($('stage').options[1].textContent,'早期 0—20%');
+$('save').click();assert.ok($('overlay').querySelector('path'));$('runsCSV').click();$('statsCSV').click();$('json').click();assert.ok(files.some(f=>f.name==='segments.csv'));assert.equal(JSON.parse(files.find(f=>f.name.endsWith('.json')).data).experiment.parameters.window,.02);
+$('stage').value='2';$('stage').dispatchEvent(new w.Event('change'));assert.ok($('distribution').querySelector('svg'));
+$('fitExample').click();$('fitRun').click();await until(()=>$('fitStatus').textContent.includes('RMSE'));assert.ok($('fitStatus').textContent.includes('近优'));$('fitJSON').click();let fit=JSON.parse(files.at(-1).data);assert.ok(Math.abs(fit.r1-2)<.05);
+$('theoryRun').click();await until(()=>$('theoryStatus').textContent.includes('最大绝对偏差'));assert.ok($('geometricChart').querySelector('svg'));
+$('scanSize').value=5;$('scanRun').click();await until(()=>$('scanStatus').textContent.startsWith('完成'));$('scanCSV').click();assert.equal(files.at(-1).data.trim().split('\n').length,27);
+$('mode').value='kinetic';$('mode').dispatchEvent(new w.Event('change'));$('tmax').value=50;$('run').click();await until(()=>$('status').textContent.startsWith('计算完成'));assert.equal($('timeCard').hidden,false);assert.ok($('timeChart').querySelector('svg'));assert.equal($('r1').disabled,true);
+$('reset').click();assert.equal($('runsCSV').disabled,true);assert.equal($('timeCard').hidden,true);
+assert.equal(errors.length,0,errors.join('\n'));console.log('PASS DOM: full HTML startup, fallback simulation, custom stages/window, SD band, comparison, exports, fit, theory, scan, kinetic mode, reset. Actual browser rendering/downloads remain separately unverified.');dom.window.close();})().catch(e=>{console.error(e);dom.window.close();process.exitCode=1;});

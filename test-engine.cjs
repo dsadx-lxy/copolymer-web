@@ -1,0 +1,6 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),M=require('./model.js');
+const source=fs.readFileSync(__dirname+'/app.js','utf8'),engine=source.slice(source.indexOf('function engine('),source.indexOf('\nfunction post('));
+const tasks=[],messages=[],context={self:{postMessage:x=>messages.push(x)},setTimeout:f=>tasks.push(f)};
+context.postMessage=x=>messages.push(x);context.self=context;vm.createContext(context);vm.runInContext(fs.readFileSync(__dirname+'/model.js','utf8')+'\nconst M=Copolymer;'+engine+'\nself.onmessage=e=>dispatch(e.data);const dispatch=engine(x=>self.postMessage(x));',context);
+const p={r1:.1,r2:.1,f:.5,n:1000,target:.9,seed:17,reps:2};
+const post=data=>context.self.onmessage({data});post({type:'start',p,speed:7});post({type:'pause'});let before=messages.length;while(tasks.length)tasks.shift()();assert.equal(messages.length,before);post({type:'resume'});post({type:'speed',speed:300});while(tasks.length)tasks.shift()();let done=messages.find(x=>x.type==='done');assert.ok(done);assert.deepEqual(JSON.parse(JSON.stringify(done.results[0])),M.run(p));assert.deepEqual(JSON.parse(JSON.stringify(done.results[1])),M.run(p,18));console.log('PASS: serialized worker engine, pause/resume, speed independence, repeated-run seeds.');

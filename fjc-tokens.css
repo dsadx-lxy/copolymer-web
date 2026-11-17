@@ -1,0 +1,203 @@
+/* FJC visual tokens, dsadx-lxy/free-chain @ 2f25315. UI roles are separate from simulation series. */
+.viz-root {
+  color-scheme: light;
+  --surface-1: #ffffff;                    
+  --page: #e9eef7;
+  --png-bg: #ffffff;
+  
+  --text-primary: #0d2f45;
+  --text-secondary: #3f5c74;
+  --text-muted: #4d6882;
+  --grid: #dde5f0;
+  --axis: #b7c4d8;
+  --border: rgba(16, 44, 84, 0.12);
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  
+  --warning: #8a5200;
+  --critical: #c0392f;
+  --hover: rgba(16, 44, 84, 0.045);
+
+  
+  --accent: #0b6b85;                       
+  --accent-2: #5b21b6;                     
+  
+  --heading: #0b6b85;
+  --accent-soft: rgba(11, 107, 133, 0.10);
+  --fill-from: #0b6b85;                    
+  --fill-to: #5b21b6;                      
+  --on-fill: #ffffff;
+  --hud-line: rgba(11, 107, 133, 0.42);    
+  --glow: rgba(11, 107, 133, 0.28);
+  --glow-2: rgba(91, 33, 182, 0.20);
+  --panel: rgba(255, 255, 255, 0.72);      
+  --panel-2: rgba(255, 255, 255, 0.86);
+  
+  --group: rgba(255, 255, 255, 0.50);
+  
+  --glass-blur: 14px;
+  --glass-blur-panel: 8px;
+  --net-grid: rgba(23, 64, 120, 0.055);    
+  --net-grid-major: rgba(23, 64, 120, 0.085);
+  --net-link: rgba(11, 107, 133, 0.16);    
+  --net-node: rgba(11, 107, 133, 0.42);
+  --net-hot: rgba(91, 33, 182, 0.55);
+  
+  --star: rgba(91, 33, 182, 0.42);
+  --star-halo: rgba(11, 107, 133, 0.22);
+  --star-hot: rgba(91, 33, 182, 0.62);
+
+  
+  --md-primary: var(--accent);
+  --md-on-primary: var(--on-fill);
+  --md-on-surface: #0d2f45;
+  --md-on-surface-variant: #3f5c74;
+  --md-surface-container-low: #ffffff;
+  --md-surface-container: #f1f5fb;
+  --md-surface-container-high: #e6edf7;
+  --md-surface-container-highest: #dbe4f1;
+  --md-outline: #7b8ca3;
+  --md-outline-variant: rgba(16, 44, 84, 0.12);
+  --md-state-hover: rgba(16, 44, 84, 0.06);
+  --md-state-press: rgba(16, 44, 84, 0.10);
+  --md-ripple: rgba(16, 44, 84, 0.16);
+  --md-elev-1: 0 12px 30px -20px rgba(12, 34, 68, 0.5), 0 1px 2px rgba(12, 34, 68, 0.05);
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme])) .viz-root {
+    color-scheme: dark;
+    --surface-1: #101a29;
+    --page: #060a12;
+    --png-bg: #101a29;
+    --text-primary: #e4f5ff;
+    --text-secondary: #b6d6ec;
+    --text-muted: #90b4d0;
+    
+    --grid: rgba(255, 255, 255, 0.10);
+    --axis: rgba(255, 255, 255, 0.30);
+    --border: rgba(120, 170, 255, 0.14);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --warning: #f5b13d;
+    --critical: #ff7b72;
+    --hover: rgba(120, 170, 255, 0.06);
+
+    --accent: #22d3ee;
+    --accent-2: #a78bfa;
+    --heading: #a9e9f7;
+    --accent-soft: rgba(34, 211, 238, 0.12);
+    --fill-from: #0e7490;
+    --fill-to: #6d28d9;
+    --on-fill: #ffffff;
+    --hud-line: rgba(34, 211, 238, 0.34);
+    --glow: rgba(34, 211, 238, 0.35);
+    --glow-2: rgba(167, 139, 250, 0.30);
+    --panel: rgba(17, 25, 39, 0.62);
+    --panel-2: rgba(20, 29, 45, 0.80);
+    --group: rgba(150, 200, 255, 0.035);
+    --glass-blur: 16px;
+    --glass-blur-panel: 10px;
+    --net-grid: rgba(120, 190, 255, 0.045);
+    --net-grid-major: rgba(120, 190, 255, 0.075);
+    --net-link: rgba(120, 200, 255, 0.13);
+    --net-node: rgba(140, 220, 255, 0.45);
+    --net-hot: rgba(167, 139, 250, 0.60);
+    --star: rgba(226, 246, 255, 0.95);
+    --star-halo: rgba(34, 211, 238, 0.45);
+    --star-hot: rgba(167, 139, 250, 0.85);
+
+    --md-primary: var(--accent);
+    --md-on-primary: var(--on-fill);
+    --md-on-surface: #e4f5ff;
+    --md-on-surface-variant: #b6d6ec;
+    --md-surface-container-low: #0e1726;
+    --md-surface-container: #131c2c;
+    --md-surface-container-high: #1a2436;
+    --md-surface-container-highest: #212d42;
+    --md-outline: #8b9bb4;
+    --md-outline-variant: rgba(120, 170, 255, 0.14);
+    --md-state-hover: rgba(120, 170, 255, 0.08);
+    --md-state-press: rgba(120, 170, 255, 0.13);
+    --md-ripple: rgba(160, 220, 255, 0.22);
+    --md-elev-1: 0 16px 36px -22px rgba(0, 0, 0, 0.95), 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+:root[data-theme="dark"] .viz-root {
+  color-scheme: dark;
+  --surface-1: #101a29;
+  --page: #060a12;
+  --png-bg: #101a29;
+  --text-primary: #e4f5ff;
+  --text-secondary: #b6d6ec;
+  --text-muted: #90b4d0;
+  
+  --grid: rgba(255, 255, 255, 0.10);
+  --axis: rgba(255, 255, 255, 0.30);
+  --border: rgba(120, 170, 255, 0.14);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --warning: #f5b13d;
+  --critical: #ff7b72;
+  --hover: rgba(120, 170, 255, 0.06);
+
+  --accent: #22d3ee;
+  --accent-2: #a78bfa;
+  --heading: #a9e9f7;
+  --accent-soft: rgba(34, 211, 238, 0.12);
+  --fill-from: #0e7490;
+  --fill-to: #6d28d9;
+  --on-fill: #ffffff;
+  --hud-line: rgba(34, 211, 238, 0.34);
+  --glow: rgba(34, 211, 238, 0.35);
+  --glow-2: rgba(167, 139, 250, 0.30);
+  --panel: rgba(17, 25, 39, 0.62);
+  --panel-2: rgba(20, 29, 45, 0.80);
+  --group: rgba(150, 200, 255, 0.035);
+  --glass-blur: 16px;
+  --glass-blur-panel: 10px;
+  --net-grid: rgba(120, 190, 255, 0.045);
+  --net-grid-major: rgba(120, 190, 255, 0.075);
+  --net-link: rgba(120, 200, 255, 0.13);
+  --net-node: rgba(140, 220, 255, 0.45);
+  --net-hot: rgba(167, 139, 250, 0.60);
+  --star: rgba(226, 246, 255, 0.95);
+  --star-halo: rgba(34, 211, 238, 0.45);
+  --star-hot: rgba(167, 139, 250, 0.85);
+
+  --md-primary: var(--accent);
+  --md-on-primary: var(--on-fill);
+  --md-on-surface: #e4f5ff;
+  --md-on-surface-variant: #b6d6ec;
+  --md-surface-container-low: #0e1726;
+  --md-surface-container: #131c2c;
+  --md-surface-container-high: #1a2436;
+  --md-surface-container-highest: #212d42;
+  --md-outline: #8b9bb4;
+  --md-outline-variant: rgba(120, 170, 255, 0.14);
+  --md-state-hover: rgba(120, 170, 255, 0.08);
+  --md-state-press: rgba(120, 170, 255, 0.13);
+  --md-ripple: rgba(160, 220, 255, 0.22);
+  --md-elev-1: 0 16px 36px -22px rgba(0, 0, 0, 0.95), 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+* { box-sizing: border-box; }
+
+
+:root { background-color: #e9eef7; color-scheme: light; }
+:root[data-theme="dark"] { background-color: #060a12; color-scheme: dark; }
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme])) { background-color: #060a12; color-scheme: dark; }
+}
+

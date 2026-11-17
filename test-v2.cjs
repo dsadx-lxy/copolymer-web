@@ -1,0 +1,16 @@
+const assert=require('node:assert/strict'),M=require('./model.js'),A=require('./analytics.js');
+const p={r1:2,r2:.4,f:.5,n:10000,target:.8,seed:22,reps:3,window:.02};
+assert.deepEqual(A.stats([1,2,3]),{mean:2,sd:1,n:3});assert.equal(A.stats([1]).sd,null);
+for(const f of [.2,.5,.8])for(const x of [.1,.5,.9])assert.ok(Math.abs(A.predict(f,x,1,1)-f)<1e-10);
+const data=[];for(let f of [.2,.5,.8])for(let x of [.2,.5,.8])data.push({f,x,fa:A.predict(f,x,2,.4,2000)});
+const fit=A.fit(data);assert.ok(Math.abs(fit.r1-2)<.05,JSON.stringify(fit));assert.ok(Math.abs(fit.r2-.4)<.02);assert.ok(fit.rmse<.002);
+const text='f0,X,FA\n'+data.map(x=>[x.f,x.x,x.fa].join(',')).join('\n');assert.equal(A.observations(text).length,9);assert.throws(()=>A.observations('f0,X,FA\n.2,.8,.9\n.5,.5,.5\n.8,.5,.8'));
+const runs=[M.run(p),M.run(p,23),M.run(p,24)],stats=A.aggregate(runs,'cumulative');assert.ok(stats.every(x=>x.n===3));assert.equal(runs[0].points[0].window,200);
+const k={...p,mode:'kinetic',kaa:2,kab:1,kba:1,kbb:.4,concentration:1,tmax:1e6};
+const base=M.run(k),fast=M.run({...k,kaa:4,kab:2,kba:2,kbb:.8});assert.deepEqual(base.sequence,fast.sequence);assert.ok(Math.abs(base.time/fast.time-2)<1e-12);assert.ok(base.points.every((q,i,a)=>!i||q.time>=a[i-1].time));
+const limited=M.run({...k,tmax:.000001});assert.equal(limited.status,'time-limit');assert.ok(limited.time<=.000001);assert.equal(limited.count+limited.a+limited.b,p.n);
+const zero=M.run({...k,kaa:0,kab:1,kba:1,kbb:0,r1:0,r2:0});for(let i=1;i<zero.count;i++)assert.notEqual(zero.sequence[i],zero.sequence[i-1]);
+assert.throws(()=>M.create({...p,reps:30,n:200000}));assert.throws(()=>M.create({...p,window:0}));
+const ff=A.fixedFeed(1,1,5,10000);assert.ok(Math.max(...ff.map(x=>Math.abs(x.sim-x.theory)))<.03);
+const fs=require('node:fs'),vm=require('node:vm'),ctx={};ctx.self=ctx;vm.createContext(ctx);let ext=fs.readFileSync(__dirname+'/extensions.js','utf8'),fn=ext.slice(ext.indexOf('function analysisJob('),ext.indexOf('\nfunction job('));vm.runInContext(fs.readFileSync(__dirname+'/model.js','utf8')+'\n'+fs.readFileSync(__dirname+'/analytics.js','utf8')+'\n'+fn,ctx);const scan=ctx.analysisJob({kind:'scan',size:5,min:.1,max:2,f:.5,x:.5},()=>{});assert.equal(scan.length,25);assert.ok(scan.every(x=>Number.isFinite(x.fa)&&x.fa>=0&&x.fa<=1));
+console.log('PASS v2: RK4 composition, synthetic parameter recovery, CSV validation, repeat SD, custom windows, SSA clock scaling and limits, fixed-feed theory.');
