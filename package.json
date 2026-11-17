@@ -1,6 +1,6 @@
 {
   "name": "copolymer-sequence-lab",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "description": "Offline browser-based copolymer sequence simulation and reactivity ratio fitting",
   "license": "MIT",

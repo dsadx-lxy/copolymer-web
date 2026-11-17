@@ -1,6 +1,6 @@
 (function(root){
 'use strict';
-const VERSION='2.0.1';
+const VERSION='2.0.2';
 function rng(seed){let a=seed>>>0;return ()=>{a=(a+0x6D2B79F5)>>>0;let t=Math.imul(a^(a>>>15),1|a);t^=t+Math.imul(t^(t>>>7),61|t);return ((t^(t>>>14))>>>0)/4294967296;};}
 function validate(p){for(const k of ['r1','r2','f','n','target','seed','reps'])if(!Number.isFinite(p[k]))throw Error('所有参数必须为有限数值');if(p.r1<0||p.r1>100||p.r2<0||p.r2>100)throw Error('竞聚率范围为0—100');if(p.f<0||p.f>1||p.target<=0||p.target>1)throw Error('组成或目标转化率超出范围');if(!Number.isInteger(p.n)||p.n<100||p.n>200000)throw Error('单体数需为100—200000的整数');if(!Number.isInteger(p.reps)||p.reps<1||p.reps>30)throw Error('重复数需为1—30的整数');if(!Number.isInteger(p.seed)||p.seed<0||p.seed>4294967295)throw Error('种子需为0—4294967295的整数');return p;}
 function probability(end,a,b,r1,r2){let x=end===0?r1*a:a,y=end===0?b:r2*b;return x+y===0?null:x/(x+y);}
