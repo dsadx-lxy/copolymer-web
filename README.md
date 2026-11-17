@@ -4,7 +4,7 @@
 
 ## 使用
 
-在 [Releases](https://github.com/dsadx-lxy/copolymer-web/releases) 下载 `copolymer-lab-v2.0.0-offline.zip`，解压后用现代 Edge、Chrome 或 Firefox 打开 `index.html`。也可以下载本仓库的全部源码，直接打开根目录的 `index.html`。
+在 [Releases](https://github.com/dsadx-lxy/copolymer-web/releases) 下载 `copolymer-lab-v2.0.1-offline.zip`，解压后用现代 Edge、Chrome 或 Firefox 打开 `index.html`。也可以下载本仓库的全部源码，直接打开根目录的 `index.html`。
 
 运行不需要联网。数据计算、参数拟合均在浏览器本机完成；参考文献链接只有点击时访问网络。浏览器允许时，主题偏好保存在本地存储。
 
