@@ -1,10 +1,10 @@
 /* FJC visual tokens, dsadx-lxy/free-chain @ 2f25315. UI roles are separate from simulation series. */
 .viz-root {
   color-scheme: light;
-  --surface-1: #ffffff;                    
+  --surface-1: #ffffff;
   --page: #e9eef7;
   --png-bg: #ffffff;
-  
+
   --text-primary: #0d2f45;
   --text-secondary: #3f5c74;
   --text-muted: #4d6882;
@@ -16,41 +16,41 @@
   --series-3: #1baf7a;
   --series-4: #eda100;
   --series-5: #e87ba4;
-  
+
   --warning: #8a5200;
   --critical: #c0392f;
   --hover: rgba(16, 44, 84, 0.045);
 
-  
-  --accent: #0b6b85;                       
-  --accent-2: #5b21b6;                     
-  
+
+  --accent: #0b6b85;
+  --accent-2: #5b21b6;
+
   --heading: #0b6b85;
   --accent-soft: rgba(11, 107, 133, 0.10);
-  --fill-from: #0b6b85;                    
-  --fill-to: #5b21b6;                      
+  --fill-from: #0b6b85;
+  --fill-to: #5b21b6;
   --on-fill: #ffffff;
-  --hud-line: rgba(11, 107, 133, 0.42);    
+  --hud-line: rgba(11, 107, 133, 0.42);
   --glow: rgba(11, 107, 133, 0.28);
   --glow-2: rgba(91, 33, 182, 0.20);
-  --panel: rgba(255, 255, 255, 0.72);      
+  --panel: rgba(255, 255, 255, 0.72);
   --panel-2: rgba(255, 255, 255, 0.86);
-  
+
   --group: rgba(255, 255, 255, 0.50);
-  
+
   --glass-blur: 14px;
   --glass-blur-panel: 8px;
-  --net-grid: rgba(23, 64, 120, 0.055);    
+  --net-grid: rgba(23, 64, 120, 0.055);
   --net-grid-major: rgba(23, 64, 120, 0.085);
-  --net-link: rgba(11, 107, 133, 0.16);    
+  --net-link: rgba(11, 107, 133, 0.16);
   --net-node: rgba(11, 107, 133, 0.42);
   --net-hot: rgba(91, 33, 182, 0.55);
-  
+
   --star: rgba(91, 33, 182, 0.42);
   --star-halo: rgba(11, 107, 133, 0.22);
   --star-hot: rgba(91, 33, 182, 0.62);
 
-  
+
   --md-primary: var(--accent);
   --md-on-primary: var(--on-fill);
   --md-on-surface: #0d2f45;
@@ -77,7 +77,7 @@
     --text-primary: #e4f5ff;
     --text-secondary: #b6d6ec;
     --text-muted: #90b4d0;
-    
+
     --grid: rgba(255, 255, 255, 0.10);
     --axis: rgba(255, 255, 255, 0.30);
     --border: rgba(120, 170, 255, 0.14);
@@ -139,7 +139,7 @@
   --text-primary: #e4f5ff;
   --text-secondary: #b6d6ec;
   --text-muted: #90b4d0;
-  
+
   --grid: rgba(255, 255, 255, 0.10);
   --axis: rgba(255, 255, 255, 0.30);
   --border: rgba(120, 170, 255, 0.14);
@@ -200,4 +200,3 @@
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme])) { background-color: #060a12; color-scheme: dark; }
 }
-
